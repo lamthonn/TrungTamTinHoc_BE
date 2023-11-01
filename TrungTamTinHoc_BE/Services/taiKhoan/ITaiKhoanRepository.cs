@@ -1,10 +1,11 @@
-﻿using TrungTamTinHoc_BE.Data.Login;
+﻿using Microsoft.AspNetCore.Mvc;
+using TrungTamTinHoc_BE.Data.Login;
 
 namespace TrungTamTinHoc_BE.Services
 {
     public interface ITaiKhoanRepository
     {
         RegisterViewModel Register(RegisterViewModel model);
-        LoginViewModel Login(Login_VM taikhoan);
+        //string Login(Login_VM taikhoan);
     }
 }

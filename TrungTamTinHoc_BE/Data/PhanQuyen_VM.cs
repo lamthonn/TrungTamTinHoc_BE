@@ -1,5 +1,4 @@
-﻿using TrungTamTinHoc_BE.Models;
-
+﻿
 namespace TrungTamTinHoc_BE.Data
 {
     public class PhanQuyen_VM

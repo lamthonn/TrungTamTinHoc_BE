@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TrungTamTinHoc_BE.Data;
 using TrungTamTinHoc_BE.Services;
+using TrungTamTinHoc_BE.Services.GiangVien;
+using TrungTamTinHoc_BE.Services.HocVien;
 using TrungTamTinHoc_BE.Services.tài_khoản;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,7 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -15,7 +18,8 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 
 //register service
 builder.Services.AddScoped<ITaiKhoanRepository, TaiKhoanRepository>();
-
+builder.Services.AddScoped<IHocvienRepository, HocvienRepository>();
+builder.Services.AddScoped<IGiangVienRepository, GiangVienRepository>();
 
 //CORS
 builder.Services.AddCors(options =>
