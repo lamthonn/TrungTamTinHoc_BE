@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrungTamTinHoc_BE.Data;
 
@@ -11,9 +12,11 @@ using TrungTamTinHoc_BE.Data;
 namespace TrungTamTinHoc_BE.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231105100329_Update_KhoaHocModel2")]
+    partial class Update_KhoaHocModel2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,10 +138,6 @@ namespace TrungTamTinHoc_BE.Migrations
 
                     b.Property<string>("GiangVienmaGV")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Loai")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("description")
                         .IsRequired()

@@ -49,8 +49,8 @@ namespace TrungTamTinHoc_BE.Services.tài_khoản
                 };
 
                 // Lưu thông tin Tài Khoản
-                _context.TaiKhoans.Add(_taikhoan);
-                _context.SaveChanges();
+                _context.TaiKhoans.Add(_taikhoan);//add vào db
+                _context.SaveChanges();//lưu
 
                 var _role = _context.Roles.SingleOrDefault(r => r.RoleName == model.RoleName);
                             

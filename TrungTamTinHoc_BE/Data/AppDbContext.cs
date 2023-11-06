@@ -15,6 +15,7 @@ namespace TrungTamTinHoc_BE.Data
         public DbSet<Role> Roles { get; set; }  
         public DbSet<PhanQuyen> PhanQuyen { get; set;}
         public DbSet<TaiKhoan> TaiKhoans { get; set; }
+        public DbSet<ThongBao> ThongBaos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

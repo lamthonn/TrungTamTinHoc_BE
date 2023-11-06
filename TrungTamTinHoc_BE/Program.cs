@@ -3,7 +3,10 @@ using TrungTamTinHoc_BE.Data;
 using TrungTamTinHoc_BE.Services;
 using TrungTamTinHoc_BE.Services.GiangVien;
 using TrungTamTinHoc_BE.Services.HocVien;
+using TrungTamTinHoc_BE.Services.KhoaHocServices;
 using TrungTamTinHoc_BE.Services.tài_khoản;
+using TrungTamTinHoc_BE.Services.ThongBao;
+using TrungTamTinHoc_BE.Services.thongBaoServices;
 
 var builder = WebApplication.CreateBuilder(args);
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -20,6 +23,8 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 builder.Services.AddScoped<ITaiKhoanRepository, TaiKhoanRepository>();
 builder.Services.AddScoped<IHocvienRepository, HocvienRepository>();
 builder.Services.AddScoped<IGiangVienRepository, GiangVienRepository>();
+builder.Services.AddScoped<IThongBaoRepository,ThongBaoRepository>();
+builder.Services.AddScoped<IKhoaHocRepository, KhoaHocRepository>();
 
 //CORS
 builder.Services.AddCors(options =>
