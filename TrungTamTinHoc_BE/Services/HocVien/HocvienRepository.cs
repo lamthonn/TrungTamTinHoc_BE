@@ -15,18 +15,41 @@ namespace TrungTamTinHoc_BE.Services.HocVien
             _context = context;
         }
 
+        public List<HocVien_VM> GetAllHocVien()
+        {
+            var result = _context.HocViens.Select(x => new HocVien_VM
+            {
+                maHV = x.maHV,
+                tenHV = x.tenHV,
+                NgaySinh = x.NgaySinh.ToString("dd-MM-yyyy"),
+                Email = x.Email,
+                DiaChi = x.DiaChi,
+                GioiTinh = x.GioiTinh,
+                Sdt = x.Sdt 
+            }).ToList();
+
+            return result;
+        }
+
         public HocVien_VM GetDataHocVien(HocVienQuery maHV)
         {
             var result = _context.HocViens.SingleOrDefault(gv => gv.maHV == maHV.username);
-            return new HocVien_VM
+            if(result != null)
             {
-                tenHV = result.tenHV,
-                DiaChi = result.DiaChi,
-                Email = result.Email,
-                GioiTinh = result.GioiTinh,
-                NgaySinh = result.NgaySinh.Date.ToString("dd-MM-yyyy"),
-                Sdt = result.Sdt,
-            };
+                return new HocVien_VM
+                {
+                    tenHV = result.tenHV,
+                    DiaChi = result.DiaChi,
+                    Email = result.Email,
+                    GioiTinh = result.GioiTinh,
+                    NgaySinh = result.NgaySinh.Date.ToString("dd-MM-yyyy"),
+                    Sdt = result.Sdt,
+                };
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public void UpdateHocvien(string mahv,HocVien_VM hocvien)

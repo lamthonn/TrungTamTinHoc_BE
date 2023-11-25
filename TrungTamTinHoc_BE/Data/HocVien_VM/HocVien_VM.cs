@@ -2,6 +2,7 @@
 {
     public class HocVien_VM
     {
+        public string maHV { get; set; }
         public string? tenHV { get; set; }
         public string? DiaChi { get; set; }
         public string? Sdt { get; set; }

@@ -16,7 +16,18 @@ namespace TrungTamTinHoc_BE.Controllers
         { 
             _hocvienRepository = hocvienRepository;
         }
-
+        [HttpGet]
+        public IActionResult GetALLHV()
+        {
+            try
+            {
+                return Ok(_hocvienRepository.GetAllHocVien());
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
         [HttpPost("GetHocVien")]
         public IActionResult GetHocVien (HocVienQuery hv)
         {
