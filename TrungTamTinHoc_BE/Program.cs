@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.Features;
+using Microsoft.EntityFrameworkCore;
 using TrungTamTinHoc_BE.Data;
 using TrungTamTinHoc_BE.Services;
+using TrungTamTinHoc_BE.Services.BaiVietServices;
 using TrungTamTinHoc_BE.Services.GiangVien;
 using TrungTamTinHoc_BE.Services.HocVien;
 using TrungTamTinHoc_BE.Services.KhoaHocServices;
@@ -17,6 +19,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddRazorPages();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("connect")));
 
 //register service
@@ -25,6 +28,15 @@ builder.Services.AddScoped<IHocvienRepository, HocvienRepository>();
 builder.Services.AddScoped<IGiangVienRepository, GiangVienRepository>();
 builder.Services.AddScoped<IThongBaoRepository,ThongBaoRepository>();
 builder.Services.AddScoped<IKhoaHocRepository, KhoaHocRepository>();
+builder.Services.AddScoped<IBaiVietRepository, BaiVietRepository>();
+
+//
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.ValueLengthLimit = int.MaxValue;
+    options.MultipartBodyLengthLimit = int.MaxValue;
+    options.MemoryBufferThreshold = int.MaxValue;
+});
 
 //CORS
 builder.Services.AddCors(options =>
@@ -39,6 +51,21 @@ builder.Services.AddCors(options =>
 });
 var app = builder.Build();
 
+app.UseCors(MyAllowSpecificOrigins);
+
+app.UseRouting();
+
+app.UseStaticFiles();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapRazorPages();
+
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=SocialMedia}/{action=newPost}");
+});
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -49,8 +76,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
-app.UseCors(MyAllowSpecificOrigins);
 
 app.MapControllers();
 

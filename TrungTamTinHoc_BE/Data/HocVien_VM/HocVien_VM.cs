@@ -2,12 +2,11 @@
 {
     public class HocVien_VM
     {
-        public string maHV { get; set; }
-        public string tenHV { get; set; }
-        public string DiaChi { get; set; }
-        public string Sdt { get; set; }
-        public string Email { get; set; }
-        public string NgaySinh { get; set; }
-        public string GioiTinh { get; set; }
+        public string? tenHV { get; set; }
+        public string? DiaChi { get; set; }
+        public string? Sdt { get; set; }
+        public string? Email { get; set; }
+        public string? NgaySinh { get; set; }
+        public string? GioiTinh { get; set; }
     }
 }

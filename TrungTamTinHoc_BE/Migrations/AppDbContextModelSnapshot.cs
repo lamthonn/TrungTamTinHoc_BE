@@ -62,6 +62,28 @@ namespace TrungTamTinHoc_BE.Migrations
                     b.ToTable("CTKhoaHocs");
                 });
 
+            modelBuilder.Entity("TrungTamTinHoc_BE.Models.Comment", b =>
+                {
+                    b.Property<int>("CommentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommentId"));
+
+                    b.Property<string>("CommentText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CommentId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("TrungTamTinHoc_BE.Models.GiangVien", b =>
                 {
                     b.Property<string>("maGV")
@@ -189,6 +211,24 @@ namespace TrungTamTinHoc_BE.Migrations
                     b.ToTable("LichHocs");
                 });
 
+            modelBuilder.Entity("TrungTamTinHoc_BE.Models.Like", b =>
+                {
+                    b.Property<int>("LikeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LikeId"));
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LikeId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("Likes");
+                });
+
             modelBuilder.Entity("TrungTamTinHoc_BE.Models.PhanQuyen", b =>
                 {
                     b.Property<int>("RoleId")
@@ -205,6 +245,36 @@ namespace TrungTamTinHoc_BE.Migrations
                     b.HasIndex("TaiKhoanAccount");
 
                     b.ToTable("PhanQuyen");
+                });
+
+            modelBuilder.Entity("TrungTamTinHoc_BE.Models.Post", b =>
+                {
+                    b.Property<int>("PostId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PostId"));
+
+                    b.Property<string>("HocVienmaHV")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PathImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("maHV")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PostId");
+
+                    b.HasIndex("HocVienmaHV");
+
+                    b.ToTable("BaiViets");
                 });
 
             modelBuilder.Entity("TrungTamTinHoc_BE.Models.Role", b =>
@@ -285,6 +355,17 @@ namespace TrungTamTinHoc_BE.Migrations
                     b.Navigation("KhoaHoc");
                 });
 
+            modelBuilder.Entity("TrungTamTinHoc_BE.Models.Comment", b =>
+                {
+                    b.HasOne("TrungTamTinHoc_BE.Models.Post", "Post")
+                        .WithMany("Comment")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("TrungTamTinHoc_BE.Models.KhoaHoc", b =>
                 {
                     b.HasOne("TrungTamTinHoc_BE.Models.GiangVien", "GiangVien")
@@ -292,6 +373,17 @@ namespace TrungTamTinHoc_BE.Migrations
                         .HasForeignKey("GiangVienmaGV");
 
                     b.Navigation("GiangVien");
+                });
+
+            modelBuilder.Entity("TrungTamTinHoc_BE.Models.Like", b =>
+                {
+                    b.HasOne("TrungTamTinHoc_BE.Models.Post", "Post")
+                        .WithMany("Like")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("TrungTamTinHoc_BE.Models.PhanQuyen", b =>
@@ -311,6 +403,15 @@ namespace TrungTamTinHoc_BE.Migrations
                     b.Navigation("TaiKhoan");
                 });
 
+            modelBuilder.Entity("TrungTamTinHoc_BE.Models.Post", b =>
+                {
+                    b.HasOne("TrungTamTinHoc_BE.Models.HocVien", "HocVien")
+                        .WithMany()
+                        .HasForeignKey("HocVienmaHV");
+
+                    b.Navigation("HocVien");
+                });
+
             modelBuilder.Entity("TrungTamTinHoc_BE.Models.GiangVien", b =>
                 {
                     b.Navigation("khoaHocs");
@@ -324,6 +425,13 @@ namespace TrungTamTinHoc_BE.Migrations
             modelBuilder.Entity("TrungTamTinHoc_BE.Models.KhoaHoc", b =>
                 {
                     b.Navigation("CTKhoaHocs");
+                });
+
+            modelBuilder.Entity("TrungTamTinHoc_BE.Models.Post", b =>
+                {
+                    b.Navigation("Comment");
+
+                    b.Navigation("Like");
                 });
 
             modelBuilder.Entity("TrungTamTinHoc_BE.Models.Role", b =>

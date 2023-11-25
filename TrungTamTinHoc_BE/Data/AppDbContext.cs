@@ -16,6 +16,9 @@ namespace TrungTamTinHoc_BE.Data
         public DbSet<PhanQuyen> PhanQuyen { get; set;}
         public DbSet<TaiKhoan> TaiKhoans { get; set; }
         public DbSet<ThongBao> ThongBaos { get; set; }
+        public DbSet<Like> Likes { get; set; }
+        public DbSet<Comment> Comments { get; set; }    
+        public DbSet<Post> BaiViets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
