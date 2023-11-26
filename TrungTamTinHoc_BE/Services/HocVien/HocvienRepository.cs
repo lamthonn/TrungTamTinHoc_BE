@@ -66,7 +66,7 @@ namespace TrungTamTinHoc_BE.Services.HocVien
                     result.Sdt = hocvien.Sdt;
                     _context.HocViens.Update(result);
                     _context.SaveChanges();
-                    }
+                 }
             
         }
 

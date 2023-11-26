@@ -9,9 +9,9 @@ namespace TrungTamTinHoc_BE.Services.KhoaHocServices
     }
     public interface IKhoaHocRepository
     {
-        List<KhoaHoc_VM> getAllKhoaHoc(KhoaHocQuery request);
-        KhoaHoc_VM addKhoaHoc(KhoaHoc_VM khoahoc);
-        void updateKhoaHoc(string maKH, KhoaHoc_VM khoahoc);
-        void deleteKhoaHoc(string maKH);
+        public List<KhoaHoc_VM> getAllKhoaHoc(KhoaHocQuery request);
+        public KhoaHoc_VM addKhoaHoc(KhoaHoc_VM khoahoc);
+        public void updateKhoaHoc(string maKH, KhoaHoc_VM khoahoc);
+        public void deleteKhoaHoc(string maKH);
     }
 }

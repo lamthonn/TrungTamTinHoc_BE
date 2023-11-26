@@ -5,7 +5,7 @@ namespace TrungTamTinHoc_BE.Services
 {
     public interface ITaiKhoanRepository
     {
-        RegisterViewModel Register(RegisterViewModel model);
+        public RegisterViewModel Register(RegisterViewModel model);
         //string Login(Login_VM taikhoan);
     }
 }

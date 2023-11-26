@@ -9,12 +9,12 @@ namespace TrungTamTinHoc_BE.Services.HocVien
         {
             public string username { get; set; }
         }
-        List<HocVien_VM> GetAllHocVien();
-        HocVien_VM GetDataHocVien(HocVienQuery vm);
+        public List<HocVien_VM> GetAllHocVien();
+        public HocVien_VM GetDataHocVien(HocVienQuery vm);
 
         //sửa học viên
-        void UpdateHocvien (string mahv, HocVien_VM hocvien);
+        public void UpdateHocvien (string mahv, HocVien_VM hocvien);
         //xóa học viên
-        void DeleteHocvien (string mahv);
+        public void DeleteHocvien (string mahv);
     }
 }
