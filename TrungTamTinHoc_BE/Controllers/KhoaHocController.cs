@@ -28,6 +28,18 @@ namespace TrungTamTinHoc_BE.Controllers
                 return BadRequest();
             }
         }
+        [HttpGet("{maKH}")]
+        public IActionResult getCourseById([FromRoute] string maKH)
+        {
+            try
+            {
+                return Ok(_khoaHocRepository.getKhoaHocByMaKH(maKH));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
 
         [HttpPost("addCourses")]
         public IActionResult addCourses(KhoaHoc_VM khoahoc)

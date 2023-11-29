@@ -9,6 +9,7 @@ namespace TrungTamTinHoc_BE.Services.GiangVien
     public interface IGiangVienRepository
     {
         public List<GiangVien_VM> GetAllGV();
+
         public GiangVien_VM GetDataGiangVien(GiangVienQuery maGV);
         //sửa giảng viên
         public void UpdateDataGiangVien(string magv, GiangVien_VM giangvien);

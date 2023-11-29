@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TrungTamTinHoc_BE.Data;
 using TrungTamTinHoc_BE.Data.KhoaHoc_VM;
 using TrungTamTinHoc_BE.Models;
@@ -15,7 +17,11 @@ namespace TrungTamTinHoc_BE.Services.KhoaHocServices
 
         public List<KhoaHoc_VM> getAllKhoaHoc(KhoaHocQuery request)
         {
-            var KhoaHoc_Loai = _context.KhoaHocs.Where(re => re.Loai == request.Loai);
+            var KhoaHoc_Loai = _context.KhoaHocs.AsNoTracking();
+            if (request.Loai != null)
+            {
+                KhoaHoc_Loai = _context.KhoaHocs.Where(re => re.Loai == request.Loai);
+            }
             var result = KhoaHoc_Loai.Select(k => new KhoaHoc_VM
             {
                 maKH = k.maKH,
@@ -28,6 +34,31 @@ namespace TrungTamTinHoc_BE.Services.KhoaHocServices
                 maGV = k.maGV
             }).ToList();
             return result;
+        }
+
+        public KhoaHoc_VM getKhoaHocByMaKH([FromRoute]string maKH)
+        {
+            var result = _context.KhoaHocs.SingleOrDefault(x =>  x.maKH == maKH);
+            if(result != null)
+            {
+                var data = new KhoaHoc_VM
+                {
+                    maKH = result.maKH,
+                    tenKH = result.tenKH,
+                    description = result.description,
+                    Loai = result.Loai,
+                    luaTuoi = result.luaTuoi,
+                    price = result.price,
+                    maGV = result.maGV,
+                    pathImage = result.pathImage,
+                    rate = result.rate,
+                };
+                return data;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public KhoaHoc_VM addKhoaHoc(KhoaHoc_VM khoahoc)

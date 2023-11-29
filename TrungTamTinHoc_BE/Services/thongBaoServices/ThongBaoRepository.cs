@@ -33,6 +33,8 @@ namespace TrungTamTinHoc_BE.Services.ThongBao
             {
                 _thongbao.Title = title;
                 _thongbao.Description = thongbao.Description;
+                _thongbao.NgayDang = _thongbao.NgayDang;
+                _thongbao.DoiTuong = _thongbao.DoiTuong;
             }
             _context.SaveChanges(); 
         }
