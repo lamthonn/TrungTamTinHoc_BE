@@ -15,20 +15,25 @@ namespace TrungTamTinHoc_BE.Services.HocVien
             _context = context;
         }
 
-        public List<HocVien_VM> GetAllHocVien()
+        public HocVienResult GetAllHocVien(int currentPage = 1, int PAGE_SIZE = 10)
         {
-            var result = _context.HocViens.Select(x => new HocVien_VM
-            {
-                maHV = x.maHV,
-                tenHV = x.tenHV,
-                NgaySinh = x.NgaySinh.ToString("dd-MM-yyyy"),
-                Email = x.Email,
-                DiaChi = x.DiaChi,
-                GioiTinh = x.GioiTinh,
-                Sdt = x.Sdt 
-            }).ToList();
+            var result = PaginatedList<Models.HocVien>.Create(_context.HocViens, currentPage, PAGE_SIZE);
 
-            return result;
+
+            return new HocVienResult
+            {
+                HocViens = result.Select(x => new HocVien_VM
+                {
+                    maHV = x.maHV,
+                    tenHV = x.tenHV,
+                    NgaySinh = x.NgaySinh.ToString("yyyy-MM-dd"),
+                    Email = x.Email,
+                    DiaChi = x.DiaChi,
+                    GioiTinh = x.GioiTinh,
+                    Sdt = x.Sdt,
+                }).ToList(),
+                TotalCount = _context.HocViens.Count()
+            };
         }
 
         public HocVien_VM GetDataHocVien(HocVienQuery maHV)
@@ -42,7 +47,7 @@ namespace TrungTamTinHoc_BE.Services.HocVien
                     DiaChi = result.DiaChi,
                     Email = result.Email,
                     GioiTinh = result.GioiTinh,
-                    NgaySinh = result.NgaySinh.Date.ToString("dd-MM-yyyy"),
+                    NgaySinh = result.NgaySinh.Date.ToString("yyyy-MM-dd"),
                     Sdt = result.Sdt,
                 };
             }
@@ -73,9 +78,13 @@ namespace TrungTamTinHoc_BE.Services.HocVien
         public void DeleteHocvien(string mahv)
         {
             var result = _context.HocViens.SingleOrDefault(hv => hv.maHV == mahv);
+            var phanquyen = _context.PhanQuyen.SingleOrDefault(hv => hv.Account == mahv);
+            var taikhoan = _context.TaiKhoans.SingleOrDefault(hv => hv.Account == mahv);
             if (result != null)
             {
                 _context.HocViens.Remove(result);
+                _context.TaiKhoans.Remove(taikhoan);
+                _context.PhanQuyen.Remove(phanquyen);
                 _context.SaveChanges();
             }
         }

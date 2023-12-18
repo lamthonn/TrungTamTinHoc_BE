@@ -15,6 +15,19 @@ namespace TrungTamTinHoc_BE.Controllers
             _thongBaoRepository = thongBaoRepository;
         }
 
+        [HttpPost("AddThongBao")]
+        public IActionResult AddThongBao(ThongBao_VM thongbao)
+        {
+            try
+            {
+                return Ok(_thongBaoRepository.AddThongBao(thongbao));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPost("GetThongBao")]
         public IActionResult GetThongBao(ThongBaoQuery request)
         {
@@ -28,12 +41,12 @@ namespace TrungTamTinHoc_BE.Controllers
             }
         }
 
-        [HttpPut("{title}")]
-        public IActionResult UpdateThongBao (string title,ThongBao_VM thongbao)
+        [HttpPut("{id}")]
+        public IActionResult UpdateThongBao (int id,ThongBao_VM thongbao)
         {
             try
             {
-                _thongBaoRepository.UpdateThongBaos(title,thongbao);
+                _thongBaoRepository.UpdateThongBaos(id,thongbao);
                 return NoContent();
             }
             catch
@@ -42,12 +55,12 @@ namespace TrungTamTinHoc_BE.Controllers
             }
         }
 
-        [HttpDelete("{title}")]
-        public IActionResult DeleteThongBao(string title)
+        [HttpDelete("{id}")]
+        public IActionResult DeleteThongBao(int id)
         {
             try
             {
-                _thongBaoRepository.DeleteThongBaos(title);
+                _thongBaoRepository.DeleteThongBaos(id);
                 return NoContent();
             }
             catch

@@ -41,12 +41,13 @@ namespace TrungTamTinHoc_BE.Services.tài_khoản
         public RegisterViewModel Register([FromBody] RegisterViewModel model)
         {
             string hashPassword = GetMD5(model.Password);
+
             var _taikhoan = new TaiKhoan
-                {
-                    Account = model.Account,
-                    Password = hashPassword,
-                    Email = model.Email,
-                };
+            {
+                Account = model.Account,
+                Password = hashPassword,
+                Email = model.Email,
+            };
 
                 // Lưu thông tin Tài Khoản
                 _context.TaiKhoans.Add(_taikhoan);//add vào db
@@ -81,52 +82,5 @@ namespace TrungTamTinHoc_BE.Services.tài_khoản
                 };
             }
 
-        //private string Generate(TaiKhoan user)
-        //{
-        //    var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-        //    var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-        //    var userRole = _context.PhanQuyen.SingleOrDefault((r => r.Account == user.Account));
-        //    var claims = new[]
-        //    {
-        //            new Claim(ClaimTypes.NameIdentifier, user.Account),
-        //            new Claim(ClaimTypes.Role, userRole.RoleId.ToString()),
-        //        };
-
-        //    var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-        //      _config["Jwt:Audience"],
-        //      claims,
-        //      expires: DateTime.Now.AddMinutes(15),
-        //      signingCredentials: credentials);
-
-        //    return new JwtSecurityTokenHandler().WriteToken(token);
-        //}
-
-        //private TaiKhoan Authenticate(Login_VM user)
-        //{
-        //    var currentUser = _context.TaiKhoans.FirstOrDefault(o => o.Account.ToLower() == user.Account.ToLower() && o.Password == GetMD5(user.Password));
-
-        //    if (currentUser != null)
-        //    {
-        //        return currentUser;
-        //    }
-
-        //    return null;
-        //}
-
-
-        //public string Login([FromBody] Login_VM taikhoan)
-        //{
-        //    var user = Authenticate(taikhoan);
-        //    if (user != null)
-        //    {
-        //        var token = Generate(user);
-        //        return token.ToString();
-        //    }
-        //    else
-        //    {
-        //        return null; // Trả về lỗi 401 Unauthorized nếu xác thực không thành công
-        //    }
-        //}
     }
 }

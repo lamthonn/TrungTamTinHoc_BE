@@ -16,11 +16,11 @@ namespace TrungTamTinHoc_BE.Controllers
             _giangVienRepository = giangVienRepository;
         }
         [HttpGet("getAllGV")]
-        public IActionResult GetAll()
+        public IActionResult GetAll(int currentPage = 1, int PAGE_SIZE = 10)
         {
             try
             {
-                return Ok(_giangVienRepository.GetAllGV());
+                return Ok(_giangVienRepository.GetAllGV(currentPage, PAGE_SIZE));
             }
             catch
             {
@@ -55,7 +55,7 @@ namespace TrungTamTinHoc_BE.Controllers
         }
 
         [HttpDelete("DeleteDataGV")]
-        public IActionResult DeleteGiangVien(string magv, GiangVien_VM giangvien)
+        public IActionResult DeleteGiangVien(string magv)
         {
             try
             {

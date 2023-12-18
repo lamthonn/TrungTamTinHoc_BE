@@ -31,7 +31,8 @@ namespace TrungTamTinHoc_BE.Services.KhoaHocServices
                 price = k.price,
                 rate = k.rate,
                 pathImage = k.pathImage,
-                maGV = k.maGV
+                maGV = k.maGV,
+                Loai = k.Loai
             }).ToList();
             return result;
         }
@@ -103,9 +104,10 @@ namespace TrungTamTinHoc_BE.Services.KhoaHocServices
                 result.rate = khoaHoc.rate;
                 result.Loai = khoaHoc.Loai;
                 result.maGV = khoaHoc.maGV;
+                _context.KhoaHocs.Update(result);
+                _context.SaveChanges();
             }
-            _context.KhoaHocs.Update(result);
-            _context.SaveChanges();
+            
         }
 
         public void deleteKhoaHoc(string maKH)

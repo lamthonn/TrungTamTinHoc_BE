@@ -11,20 +11,34 @@ namespace TrungTamTinHoc_BE.Services.GiangVien
         {
             _context = context;
         }
-        public List<GiangVien_VM> GetAllGV()
+        public GiangVienResult GetAllGV(int currentPage = 1, int PAGE_SIZE = 10)
         {
-            var result = _context.GiangViens.Select(x => new GiangVien_VM
+            var result = PaginatedList<Models.GiangVien>.Create(_context.GiangViens, currentPage, PAGE_SIZE);
+            //var result = _context.GiangViens.Select(x => new GiangVien_VM
+            //{
+            //    maGV = x.maGV,
+            //    tenGV = x.tenGV,
+            //    DiaChi = x.DiaChi,
+            //    Email = x.Email,
+            //    GioiTinh = x.GioiTinh,
+            //    NgaySinh = x.NgaySinh.ToString("dd-MM-yyyy"),
+            //    Sdt = x.Sdt
+            //})
+            //.ToList();
+            return new GiangVienResult
             {
-                maGV = x.maGV,
-                tenGV = x.tenGV,
-                DiaChi = x.DiaChi,
-                Email = x.Email,
-                GioiTinh = x.GioiTinh,
-                NgaySinh = x.NgaySinh.ToString("dd-MM-yyyy"),
-                Sdt = x.Sdt
-            })
-            .ToList();
-            return result;
+                GiangViens = result.Select(x => new GiangVien_VM
+                {
+                    maGV = x.maGV,
+                    tenGV = x.tenGV,
+                    DiaChi = x.DiaChi,
+                    Email = x.Email,
+                    GioiTinh = x.GioiTinh,
+                    NgaySinh = x.NgaySinh.ToString("yyyy-MM-dd"),
+                    Sdt = x.Sdt
+                }).ToList(),
+                TotalCount = _context.GiangViens.Count(),
+            };
         }
         public GiangVien_VM GetDataGiangVien(GiangVienQuery maGV)
         {
@@ -60,9 +74,13 @@ namespace TrungTamTinHoc_BE.Services.GiangVien
         public void DeleteDataGiangVien(string magv)
         {
             var result = _context.GiangViens.SingleOrDefault(gv => gv.maGV == magv);
+            var phanquyen = _context.PhanQuyen.SingleOrDefault(gv => gv.Account == magv);
+            var taikhoan = _context.TaiKhoans.SingleOrDefault(gv => gv.Account == magv);
             if (result != null)
             {
                 _context.GiangViens.Remove(result);
+                _context.TaiKhoans.Remove(taikhoan);
+                _context.PhanQuyen.Remove(phanquyen);
                 _context.SaveChanges();
             }
         }

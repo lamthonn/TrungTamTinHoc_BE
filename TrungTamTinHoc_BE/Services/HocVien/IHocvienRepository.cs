@@ -9,7 +9,7 @@ namespace TrungTamTinHoc_BE.Services.HocVien
         {
             public string username { get; set; }
         }
-        public List<HocVien_VM> GetAllHocVien();
+        public HocVienResult GetAllHocVien(int currentPage = 1, int PAGE_SIZE = 10);
         public HocVien_VM GetDataHocVien(HocVienQuery vm);
 
         //sửa học viên

@@ -8,7 +8,7 @@ namespace TrungTamTinHoc_BE.Services.GiangVien
     }
     public interface IGiangVienRepository
     {
-        public List<GiangVien_VM> GetAllGV();
+        public GiangVienResult GetAllGV(int currentPage = 1, int PAGE_SIZE = 10);
 
         public GiangVien_VM GetDataGiangVien(GiangVienQuery maGV);
         //sửa giảng viên

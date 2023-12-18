@@ -17,11 +17,11 @@ namespace TrungTamTinHoc_BE.Controllers
             _hocvienRepository = hocvienRepository;
         }
         [HttpGet]
-        public IActionResult GetALLHV()
+        public IActionResult GetALLHV(int currentPage = 1, int PAGE_SIZE = 10)
         {
             try
             {
-                return Ok(_hocvienRepository.GetAllHocVien());
+                return Ok(_hocvienRepository.GetAllHocVien(currentPage, PAGE_SIZE));
             }
             catch
             {

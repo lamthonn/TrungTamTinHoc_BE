@@ -26,22 +26,47 @@ namespace TrungTamTinHoc_BE.Services.ThongBao
             }).ToList();
         }
 
-        public void UpdateThongBaos(string title, ThongBao_VM thongbao)
+        public ThongBao_VM AddThongBao(ThongBao_VM thongbao)
         {
-            var _thongbao = _context.ThongBaos.SingleOrDefault(tb =>  tb.Title == title);
+            var _thongbao = new Models.ThongBao
+            {
+                Id = thongbao.Id,
+                Description = thongbao.Description,
+                DoiTuong = thongbao.DoiTuong,
+                Title = thongbao.Title,
+                NgayDang = DateTime.Now,
+            };
+            _context.ThongBaos.Add(_thongbao);
+            _context.SaveChanges();
+            return new ThongBao_VM
+            {
+                Id = _thongbao.Id,
+                Description = _thongbao.Description,
+                DoiTuong = _thongbao.DoiTuong,
+                Title = _thongbao.Title,
+                NgayDang = _thongbao.NgayDang.ToString(),
+            };
+        }
+
+        public void UpdateThongBaos(int id, ThongBao_VM thongbao)
+        {
+            var _thongbao = _context.ThongBaos.SingleOrDefault(tb =>  tb.Id == id);
             if (_thongbao != null)
             {
-                _thongbao.Title = title;
+                _thongbao.Id = id;
                 _thongbao.Description = thongbao.Description;
                 _thongbao.NgayDang = _thongbao.NgayDang;
                 _thongbao.DoiTuong = _thongbao.DoiTuong;
+                _context.ThongBaos.Update(_thongbao);
+                _context.SaveChanges();
+
             }
-            _context.SaveChanges(); 
+            
         }
 
-        public void DeleteThongBaos(string title)
+        public void DeleteThongBaos(int id)
         {
-            var _thongbao = _context.ThongBaos.SingleOrDefault(tb => tb.Title == title);
+            var _thongbao = _context.ThongBaos.SingleOrDefault(tb => tb.Id == id);
             if (_thongbao != null)
             {
                 _context.Remove(_thongbao);
