@@ -57,7 +57,7 @@ namespace TrungTamTinHoc_BE.Controllers
             }
             else
             {
-                return null; // Trả về lỗi 401 Unauthorized nếu xác thực không thành công
+                return BadRequest(); // Trả về lỗi 401 Unauthorized nếu xác thực không thành công
             }
 
         }

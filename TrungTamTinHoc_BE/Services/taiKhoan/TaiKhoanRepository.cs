@@ -67,6 +67,7 @@ namespace TrungTamTinHoc_BE.Services.tài_khoản
                     _context.PhanQuyen.Add(_phanquyen);
                     _context.SaveChanges();
 
+               
                 }
                 else
                 {
